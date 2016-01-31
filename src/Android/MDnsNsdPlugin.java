@@ -29,12 +29,15 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 
 		super.initialize(cordova, webView);
-
-		mRPiAddress = "";
-		mNsdManager = (NsdManager)(this.cordova.getActivity().getApplicationContext().getSystemService(Context.NSD_SERVICE));
-		initializeResolveListener();
-		initializeDiscoveryListener();
-		mNsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
+		try {
+			mRPiAddress = "";
+			mNsdManager = (NsdManager)(this.cordova.getActivity().getApplicationContext().getSystemService(Context.NSD_SERVICE));
+			initializeResolveListener();
+			initializeDiscoveryListener();
+			mNsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);		
+		} catch (Exception e) {
+			webView.loadUrl("javascript:console.log('" + e.message + "'');");
+		}
 	}
 
 	@Override
