@@ -36,7 +36,7 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 			initializeDiscoveryListener();
 			mNsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);		
 		} catch (Exception e) {
-			webView.loadUrl("javascript:console.log('" + e.getMessage() + "'');");
+			webView.loadUrl("javascript:console.log('" + e.getMessage() + "');");
 		}
 	}
 
@@ -47,6 +47,7 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 				callbackContext.success(mRPiAddress);
 			} else {
 				callbackContext.error("Host never resolved.");
+				return false
 			}
 		} else if (action.equals("initialize")) {
 
