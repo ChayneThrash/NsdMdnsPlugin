@@ -47,7 +47,7 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 				callbackContext.success(mRPiAddress);
 			} else {
 				callbackContext.error("Host never resolved.");
-				return false
+				return false;
 			}
 		} else if (action.equals("initialize")) {
 
