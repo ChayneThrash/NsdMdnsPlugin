@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-MDnsNsd-plugin"
+        version="1.0.0">
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <name>MDnsNsdPlugin</name>
+    <description>MDns plugin for Cordova/Phonegap</description>
+    <author>Chayne Thrash</author>
+    <keywords>MDNS</keywords>
+
+    <js-module src="www/MDns.js" name="MDnsNsdPlugin">
+        <clobbers target="MDnsNsdPlugin" />
+    </js-module>
+
+    <platform name="android">
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+            <uses-permission android:name="android.permission.INTERNET" />
+			      <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        </config-file>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="MDnsNsdPlugin">
+                <param name="android-package" value="com.cthrash.MDnsNsdPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <framework src="javax.jmdns:jmdns:+"/>
+
+        <source-file src="src/android/MDnsNsdPlugin.java" target-dir="src/com/cthrash" />
+
+    </platform>
+    <info></info>
+</plugin>
