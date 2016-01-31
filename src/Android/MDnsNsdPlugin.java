@@ -42,6 +42,8 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 			} else {
 				callbackContext.error("Host never resolved.");
 			}
+		} else if (action.equals("initialize")) {
+			
 		} else {
 			callbackContext.error("Invalid action supplied");
 			return false;
