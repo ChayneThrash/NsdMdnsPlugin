@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import java.net.InetAddress;
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +22,8 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 	private NsdServiceInfo mServiceInfo;
 	public String mRPiAddress;
 
+	private static final String SERVICE_TYPE = "_workstation._tcp.";
+	private static final String HOST_NAME = "Chayne-PC";
 
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -28,7 +31,7 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 		super.initialize(cordova, webView);
 
 		mRPiAddress = "";
-		mNsdManager = (NsdManager)(getApplicationContext().getSystemService(Context.NSD_SERVICE));
+		mNsdManager = (NsdManager)(this.cordova.getActivity().getApplicationContext().getSystemService(Context.NSD_SERVICE));
 		initializeResolveListener();
 		initializeDiscoveryListener();
 		mNsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
@@ -43,7 +46,7 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 				callbackContext.error("Host never resolved.");
 			}
 		} else if (action.equals("initialize")) {
-			
+
 		} else {
 			callbackContext.error("Invalid action supplied");
 			return false;
@@ -68,7 +71,7 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 		        String type = service.getServiceType();
 		        Log.d("NSD", "Service Name=" + name);
 		        Log.d("NSD", "Service Type=" + type);
-		        if (type.equals(SERVICE_TYPE) && name.contains("garagedoor")) {
+		        if (type.equals(SERVICE_TYPE) && name.contains("HOST_NAME")) {
 		            Log.d("NSD", "Service Found @ '" + name + "'");
 		            mNsdManager.resolveService(service, mResolveListener);
 		        }
