@@ -36,7 +36,7 @@ public class MDnsNsdPlugin extends CordovaPlugin {
 			initializeDiscoveryListener();
 			mNsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);		
 		} catch (Exception e) {
-			webView.loadUrl("javascript:console.log('" + e.message + "'');");
+			webView.loadUrl("javascript:console.log('" + e.getMessage() + "'');");
 		}
 	}
 
